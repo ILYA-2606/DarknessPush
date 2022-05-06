@@ -1,0 +1,12 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    sort_constructors_first: true
+    prefer_single_quotes: true
+    always_specify_types: false
+    lines_longer_than_120_chars: true
+    always_put_required_named_parameters_first: false
+    avoid_classes_with_only_static_members: false
+    sort_pub_dependencies: false
+    avoid_print: false

@@ -1,0 +1,25 @@
+name: darkness_push
+description: Crossplatform opensource APNS utility.
+
+publish_to: 'none'
+
+version: 1.0.0
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  dart_jsonwebtoken: ^2.4.1
+  file_picker: ^4.5.1
+  flutter:
+    sdk: flutter
+  lint: ^1.8.2
+  http2: ^2.0.0
+
+dev_dependencies:
+  flutter_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
