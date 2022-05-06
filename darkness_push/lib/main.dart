@@ -1,4 +1,4 @@
-import 'package:darkness_push/app.dart';
+import 'package:darkness_push/widget/app_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'DarknessPush'),
+      home: const AppWidget(title: 'DarknessPush'),
     );
   }
 }
