@@ -69,7 +69,6 @@ class PushService {
           final description = utf8.decode(message.bytes);
           final object = json.decode(description);
           final Map<String, dynamic>? map = tryCast<Map<String, dynamic>>(object);
-          print(object.runtimeType);
           if (map != null) {
             final reason = map['reason'];
             if (reason != null && reason is String) {

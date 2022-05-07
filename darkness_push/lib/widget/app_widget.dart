@@ -3,6 +3,7 @@ import 'package:darkness_push/widget/app_widget_state_preferences.dart';
 import 'package:darkness_push/widget/app_widget_state_utils.dart';
 import 'package:darkness_push/widget/button_widget.dart';
 import 'package:darkness_push/widget/field_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatefulWidget {
@@ -38,8 +39,11 @@ class AppWidgetState extends State<AppWidget> {
         teamErrorText == null &&
         deviceErrorText == null &&
         bundleErrorText == null &&
+        bodyErrorText == null &&
         key != null;
   }
+
+  bool get isMacOS => defaultTargetPlatform == TargetPlatform.macOS;
 
   @override
   void initState() {
@@ -85,7 +89,7 @@ class AppWidgetState extends State<AppWidget> {
                   children: [
                     FieldWidget(controller: keyController, title: 'Key ID', errorText: keyErrorText),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4, right: 8),
+                      padding: EdgeInsets.only(top: isMacOS ? 12 : 6, right: 8),
                       child: ButtonWidget(
                         title: keyName ?? 'Select P8 key',
                         fontSize: 14,

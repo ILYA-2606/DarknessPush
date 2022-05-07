@@ -9,9 +9,10 @@ import 'package:flutter/material.dart';
 extension Utils on AppWidgetState {
   void updateTextController(TextEditingController controller, {bool needUppercase = false}) {
     if (needUppercase) {
+      // setState(() => controller.text = controller.text.toUpperCase());
       final text = controller.text.toUpperCase();
-      final selection = TextSelection(baseOffset: text.length, extentOffset: text.length);
-      controller.value = controller.value.copyWith(text: text, selection: selection, composing: TextRange.empty);
+      controller.value =
+          controller.value.copyWith(text: text, selection: controller.selection, composing: TextRange.empty);
     }
     updateState();
   }
@@ -61,22 +62,18 @@ extension Utils on AppWidgetState {
   void updateState() {
     setState(() {
       keyErrorText = key == null
-          ? "P8 key isn't selected"
+          ? 'P8 key must be selected'
           : keyController.text.length != 10
               ? 'Field must contains 10 symbols'
               : null;
       teamErrorText = teamController.text.length != 10 ? 'Field must contains 10 symbols' : null;
       deviceErrorText = deviceController.text.length != 64 ? 'Field must contains 64 symbols' : null;
-      bundleErrorText = bundleController.text.isEmpty ? "Field isn't entered" : null;
-      if (bodyController.text.isEmpty) {
-        bodyErrorText = "Field isn't entered";
-      } else {
-        try {
-          final _ = json.decode(bodyController.text);
-          bodyErrorText = null;
-        } catch (_) {
-          bodyErrorText = 'Body has an incorrect JSON';
-        }
+      bundleErrorText = bundleController.text.isEmpty ? 'Field must not be empty' : null;
+      try {
+        final _ = json.decode(bodyController.text);
+        bodyErrorText = null;
+      } catch (_) {
+        bodyErrorText = 'Body must be in JSON format';
       }
       isSendEnabled = isValidInputData;
     });
