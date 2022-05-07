@@ -55,21 +55,14 @@ class AppWidgetState extends State<AppWidget> {
   @override
   void setState(VoidCallback fn) => super.setState(fn);
 
-  void updateTextController(TextEditingController controller, {bool needUppercase = false}) {
-    if (needUppercase) {
-      final text = controller.text.toUpperCase();
-      final selection = TextSelection(baseOffset: text.length, extentOffset: text.length);
-      controller.value = controller.value.copyWith(text: text, selection: selection, composing: TextRange.empty);
-    }
-    updateState();
-  }
-
   @override
   void dispose() {
     teamController.dispose();
     keyController.dispose();
     deviceController.dispose();
     bodyController.dispose();
+    bundleController.dispose();
+    collapseController.dispose();
     super.dispose();
   }
 

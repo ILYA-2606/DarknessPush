@@ -7,6 +7,15 @@ import 'package:darkness_push/widget/app_widget_state_preferences.dart';
 import 'package:flutter/material.dart';
 
 extension Utils on AppWidgetState {
+  void updateTextController(TextEditingController controller, {bool needUppercase = false}) {
+    if (needUppercase) {
+      final text = controller.text.toUpperCase();
+      final selection = TextSelection(baseOffset: text.length, extentOffset: text.length);
+      controller.value = controller.value.copyWith(text: text, selection: selection, composing: TextRange.empty);
+    }
+    updateState();
+  }
+
   Future<void> processFileSelection() async {
     try {
       final file = await FileService.selectP8File();
