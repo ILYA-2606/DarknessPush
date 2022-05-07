@@ -1,9 +1,24 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:darkness_push/auth_token_factory.dart';
+import 'package:darkness_push/model/auth_token_factory.dart';
 import 'package:darkness_push/model/push_status.dart';
+import 'package:darkness_push/model/utils.dart';
 import 'package:http2/http2.dart';
+
+enum PushType { alert, background, location, voip, complication, fileprovider, mdm }
+enum PushEnvironment { production, development }
+
+extension Environment on PushEnvironment {
+  String get host {
+    switch (this) {
+      case PushEnvironment.production:
+        return 'api.push.apple.com';
+      case PushEnvironment.development:
+        return 'api.sandbox.push.apple.com';
+    }
+  }
+}
 
 class PushService {
   static Future<PushStatus> sendPush({
@@ -13,10 +28,14 @@ class PushService {
     required String teamID,
     required String keyID,
     required String bundleID,
+    required PushType type,
+    required PushEnvironment environment,
+    required int priority,
+    String? collapseID,
   }) async {
     try {
       final url = Uri.https(
-        'api.push.apple.com',
+        environment.host,
         '3/device/$deviceToken',
       );
       final transport = ClientTransportConnection.viaSocket(
@@ -29,8 +48,10 @@ class PushService {
         Header.ascii(':scheme', url.scheme),
         Header.ascii(':authority', url.host),
         Header.ascii('apns-topic', bundleID),
-        Header.ascii('apns-push-type', 'alert'),
+        Header.ascii('apns-push-type', type.name),
         Header.ascii('authorization', AuthTokenFactory.makeAuthToken(key, teamID, keyID)),
+        Header.ascii('apns-priority', priority.toString()),
+        if (collapseID != null && collapseID.isNotEmpty) Header.ascii('apns-collapse-id', collapseID),
       ]);
       stream.sendData(bytes, endStream: true);
       String? statusCode;
@@ -47,9 +68,11 @@ class PushService {
         } else if (message is DataStreamMessage) {
           final description = utf8.decode(message.bytes);
           final object = json.decode(description);
-          if (object is Map<String, String>) {
-            final reason = object['reason'];
-            if (reason != null) {
+          final Map<String, dynamic>? map = tryCast<Map<String, dynamic>>(object);
+          print(object.runtimeType);
+          if (map != null) {
+            final reason = map['reason'];
+            if (reason != null && reason is String) {
               descriptionText = reason;
             }
           }
@@ -58,7 +81,7 @@ class PushService {
       }
       await transport.finish();
       if (statusCode == '200') {
-        return PushStatus(isSuccess: true, description: 'Push sended');
+        return PushStatus(isSuccess: true, description: 'Push sent');
       } else if (statusCode != null) {
         return PushStatus(isSuccess: false, description: '$statusCode: ${descriptionText ?? 'No description'}');
       } else {

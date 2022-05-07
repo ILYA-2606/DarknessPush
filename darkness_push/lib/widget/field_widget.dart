@@ -5,7 +5,7 @@ class FieldWidget extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.title,
-    required this.errorText,
+    this.errorText,
     this.maxLines = 1,
   }) : super(key: key);
 
