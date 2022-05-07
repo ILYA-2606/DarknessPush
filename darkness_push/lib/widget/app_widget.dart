@@ -60,9 +60,8 @@ class AppWidgetState extends State<AppWidget> {
     teamController.dispose();
     keyController.dispose();
     deviceController.dispose();
-    bodyController.dispose();
     bundleController.dispose();
-    collapseController.dispose();
+    bodyController.dispose();
     super.dispose();
   }
 
