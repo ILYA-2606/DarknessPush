@@ -28,4 +28,5 @@ Crossplatform APNS utility on your iOS/iPadOS/Android/macOS!
 - Environment (production by default)
 - Priority (10 by default)
 
-<img width="300" alt="Mac App Store" src="https://user-images.githubusercontent.com/100840225/167472300-86f8e5e0-2cc6-4019-b9c3-a7a6cf7e828b.png">
+<img width="300" alt="Mac App Store" src="https://user-images.githubusercontent.com/100840225/167472647-b661b445-6718-402c-be1f-4b20556f2d0d.png">
+
