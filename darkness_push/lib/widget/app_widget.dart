@@ -3,7 +3,6 @@ import 'package:darkness_push/widget/app_widget_state_preferences.dart';
 import 'package:darkness_push/widget/app_widget_state_utils.dart';
 import 'package:darkness_push/widget/button_widget.dart';
 import 'package:darkness_push/widget/field_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatefulWidget {
@@ -42,8 +41,6 @@ class AppWidgetState extends State<AppWidget> {
         bodyErrorText == null &&
         key != null;
   }
-
-  bool get isMacOS => defaultTargetPlatform == TargetPlatform.macOS;
 
   @override
   void initState() {
@@ -84,19 +81,18 @@ class AppWidgetState extends State<AppWidget> {
               children: <Widget>[
                 FieldWidget(controller: teamController, title: 'Team ID', errorText: teamErrorText),
                 const SizedBox(height: 20),
-                Stack(
-                  alignment: AlignmentDirectional.topEnd,
-                  children: [
-                    FieldWidget(controller: keyController, title: 'Key ID', errorText: keyErrorText),
-                    Padding(
-                      padding: EdgeInsets.only(top: isMacOS ? 12 : 6, right: 8),
-                      child: ButtonWidget(
-                        title: keyName ?? 'Select P8 key',
-                        fontSize: 14,
-                        onPressed: () => processFileSelection(),
-                      ),
+                FieldWidget(
+                  controller: keyController,
+                  title: 'Key ID',
+                  errorText: keyErrorText,
+                  suffix: SizedBox(
+                    height: 32,
+                    child: ButtonWidget(
+                      title: keyName ?? 'Select P8 key',
+                      fontSize: 14,
+                      onPressed: processFileSelection,
                     ),
-                  ],
+                  ),
                 ),
                 const SizedBox(height: 20),
                 FieldWidget(controller: bundleController, title: 'Bundle ID', errorText: bundleErrorText),
@@ -150,7 +146,7 @@ class AppWidgetState extends State<AppWidget> {
                 ),
                 const SizedBox(height: 20),
                 if (!isPushSending)
-                  ButtonWidget(title: 'Send push', isEnabled: isSendEnabled, onPressed: () => sendRequest())
+                  ButtonWidget(title: 'Send push', isEnabled: isSendEnabled, onPressed: sendRequest)
                 else
                   const CircularProgressIndicator()
               ],
