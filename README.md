@@ -27,3 +27,5 @@ Crossplatform APNS utility on your iOS/iPadOS/Android/macOS!
 - APNS type (alert by default)
 - Environment (production by default)
 - Priority (10 by default)
+
+<img width="300" alt="Mac App Store" src="https://user-images.githubusercontent.com/100840225/167472300-86f8e5e0-2cc6-4019-b9c3-a7a6cf7e828b.png">
