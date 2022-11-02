@@ -20,7 +20,7 @@ class ButtonWidget extends StatelessWidget {
       style: TextButton.styleFrom(
         textStyle: TextStyle(fontSize: fontSize, overflow: TextOverflow.ellipsis),
         backgroundColor: const Color(0xFFE6F0F9),
-        primary: Colors.blue.withOpacity(isEnabled ? 1 : 0.5),
+        foregroundColor: Colors.blue.withOpacity(isEnabled ? 1 : 0.5),
       ),
       onPressed: onPressed,
       child: Text(title),

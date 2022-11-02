@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 extension Utils on AppWidgetState {
   void updateTextController(TextEditingController controller, {bool needUppercase = false}) {
     if (needUppercase) {
-      // setState(() => controller.text = controller.text.toUpperCase());
       final text = controller.text.toUpperCase();
       controller.value =
           controller.value.copyWith(text: text, selection: controller.selection, composing: TextRange.empty);
@@ -67,7 +66,7 @@ extension Utils on AppWidgetState {
               ? 'Field must contains 10 symbols'
               : null;
       teamErrorText = teamController.text.length != 10 ? 'Field must contains 10 symbols' : null;
-      deviceErrorText = deviceController.text.length != 64 ? 'Field must contains 64 symbols' : null;
+      deviceErrorText = deviceController.text.length < 64 ? 'Field must contains 64 symbols or more' : null;
       bundleErrorText = bundleController.text.isEmpty ? 'Field must not be empty' : null;
       try {
         final _ = json.decode(bodyController.text);
