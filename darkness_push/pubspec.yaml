@@ -3,7 +3,7 @@ description: Crossplatform opensource APNS utility.
 
 publish_to: 'none'
 
-version: 1.0.0+2
+version: 1.0.1+3
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
