@@ -11,7 +11,7 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.2
   dart_jsonwebtoken: ^2.4.1
-  file_picker: ^4.5.1
+  file_picker: ^5.2.2
   flutter:
     sdk: flutter
   lint: ^1.8.2
